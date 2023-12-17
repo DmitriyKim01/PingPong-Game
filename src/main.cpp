@@ -18,7 +18,6 @@ class Ball {
                 acceleration_x *= -1;
                 isDefeated = true;
                 ResetBall();
-
             }
         }
     public:
@@ -114,7 +113,7 @@ int main () {
     // Player settings
     const int PLAYER_HEIGHT = 120;
     const int PLAYER_WIDTH = 25;
-    const int PLAYER_MARGIN = 0;
+    const int PLAYER_MARGIN = 10;
     const int PLAYER_SPEED = 4;
     Paddle player = Paddle(PLAYER_MARGIN,SCREEN_HEIGHT/2-(PLAYER_HEIGHT/2+PLAYER_MARGIN), PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_SPEED);
 
