@@ -8,6 +8,8 @@ Color Dark_Green = Color{20, 160, 133, 255};
 Color Light_Green = Color{129, 204, 184, 255};
 Color Yellow = Color{243, 213, 91, 255};
 
+
+
 class Ball {
     protected : 
         void LimitMovement () {
@@ -159,6 +161,7 @@ int main () {
                 ball.x = aiPlayer.x - ball.radius; // Move the ball outside the AI paddle
                 PlaySound(pong_sound);
             }
+            
             ball.Move();
             player.Move();
             aiPlayer.Move(ball.y);
