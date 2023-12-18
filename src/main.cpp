@@ -124,12 +124,20 @@ int main () {
     int score = 0;
     ball.isDefeated = true;
 
+    // Audio settings
+    InitAudioDevice();
+    Sound pong_sound = LoadSound("../resources/pong.wav");
+    Music music = LoadMusicStream("../resources/BeatThee.mp3"); // Load music file
+    PlayMusicStream(music); // Start playing music
+
     while (WindowShouldClose() == false){
         BeginDrawing();
         ClearBackground(Dark_Green);
         DrawRectangle(SCREEN_WIDTH/2, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Green);
         DrawCircle(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 150, Light_Green);
         DrawLine(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT, WHITE);
+
+        UpdateMusicStream(music);
 
         if (ball.isDefeated) {
             DrawText(TextFormat("%i", score), (SCREEN_WIDTH - MeasureText(TextFormat("%i", score), 80))/2, 10, 80, WHITE);
@@ -144,10 +152,12 @@ int main () {
                 ball.acceleration_x *= -1;
                 ball.x = player.x + player.width + ball.radius; // Move the ball outside the player paddle
                 score += 1;
+                PlaySound(pong_sound);
             }
             if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.radius, Rectangle{aiPlayer.x, aiPlayer.y, aiPlayer.width, aiPlayer.height})) {
                 ball.acceleration_x *= -1;
                 ball.x = aiPlayer.x - ball.radius; // Move the ball outside the AI paddle
+                PlaySound(pong_sound);
             }
             ball.Move();
             player.Move();
@@ -160,6 +170,8 @@ int main () {
         }
         EndDrawing();
     }
+    UnloadMusicStream(music);
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }
